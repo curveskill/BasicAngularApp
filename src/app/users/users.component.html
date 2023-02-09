@@ -1,0 +1,19 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <h3>User Info</h3>
+            <div class="list-group">
+                <a routerLink="/users/user-profile" class="list-group-item list-group-item-action">Profile</a>
+                <a routerLink="/users/user-address" class="list-group-item list-group-item-action">Address</a>
+                <a routerLink="/users/user-trans-history" class="list-group-item list-group-item-action">Transaction History</a>
+                <a routerLink="/users/user-task" class="list-group-item list-group-item-action">Task</a>
+              </div>
+        </div>
+
+        <div class="col-9">
+            <h3>User Info</h3>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
