@@ -1,4 +1,4 @@
-<p>products works!</p>
+<!-- <p>products works!</p>
 <h4>{{userName}}</h4>
 <h4>{{userMobileNo}}</h4>
 <h4>{{isUserActive}}</h4>
@@ -8,4 +8,25 @@
 
 
 <img [src]="productImg" alt=""  class="product-img">
-<!-- <img src="{{productImg}}" alt=""  class="product-img"> -->
+<img src="{{productImg}}" alt=""  class="product-img"> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <ng-container *ngFor="let item of productList; let i =index;">
+            <div class="col-sm-12 col-md-2 col-lg-2">
+                <div class="card">
+                    <img [src]="item.productImg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <h5 class="card-title">{{item.productName}}</h5>
+                      <p>22442</p>
+                      <p>22442</p>
+                      <p>22442</p>
+                      <p>22442</p>
+                      <p>22442</p>
+                    </div>
+                  </div>
+              </div>
+        </ng-container>
+      
+    </div>
+  </div>

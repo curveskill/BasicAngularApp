@@ -13,6 +13,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAddressComponent } from './user-address/user-address.component';
 import { UserTransactionHistoryComponent } from './user-transaction-history/user-transaction-history.component';
 import { UserTaskComponent } from './user-task/user-task.component';
+import { HeaderComponent } from './header/header.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { UserTaskComponent } from './user-task/user-task.component';
     UserProfileComponent,
     UserAddressComponent,
     UserTransactionHistoryComponent,
-    UserTaskComponent
+    UserTaskComponent,
+    HeaderComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule,
