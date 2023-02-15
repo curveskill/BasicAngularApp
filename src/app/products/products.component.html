@@ -9,7 +9,7 @@
 
 <img [src]="productImg" alt=""  class="product-img">
 <img src="{{productImg}}" alt=""  class="product-img"> -->
-
+<!-- {{productList | json}} -->
 <div class="container-fluid">
     <div class="row">
         <ng-container *ngFor="let item of productList; let i =index;">
@@ -17,8 +17,9 @@
                 <div class="card">
                     <img [src]="item.productImg" class="card-img-top" alt="">
                     <div class="card-body">
-                      <h5 class="card-title">{{item.productName}}</h5>
-                      <p>22442</p>
+                      <!-- <h5 class="card-title">{{item.productName | titlecase}}</h5> -->
+                      <h5 class="card-title">{{item.productName | uppercase | slice:0:2}}</h5>
+                      <p>{{item.createdAt | date:"MMM d, y, h:mm:ss a"}}</p>
                       <p>22442</p>
                       <p>22442</p>
                       <p>22442</p>
@@ -30,3 +31,9 @@
       
     </div>
   </div>
+
+  <div [ngSwitch]="'employee'">
+    <div *ngSwitchCase="'user'">User content</div>
+    <div *ngSwitchCase="'employee'">Employee content</div>
+    <div *ngSwitchDefault>Please provide valid option</div>
+</div>
