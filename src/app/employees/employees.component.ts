@@ -18,6 +18,7 @@ export class EmployeesComponent implements OnInit {
       region: 'CA',
       phoneNumber: '408-1234567',
       emailAddress: 'romin.k.irani@gmail.com',
+      status:"success"
     },
     {
       userId: 'nirani',
@@ -29,6 +30,7 @@ export class EmployeesComponent implements OnInit {
       region: 'CA',
       phoneNumber: '408-1111111',
       emailAddress: 'neilrirani@gmail.com',
+      status:"pending"
     },
     {
       userId: 'thanks',
@@ -40,6 +42,19 @@ export class EmployeesComponent implements OnInit {
       region: 'CA',
       phoneNumber: '408-2222222',
       emailAddress: 'tomhanks@gmail.com',
+      status:"inProgress"
+    },
+    {
+      userId: 'thanks',
+      jobTitleName: 'Program Directory',
+      firstName: 'Tom',
+      lastName: 'Hanks',
+      preferredFullName: 'Tom Hanks',
+      employeeCode: 'E3',
+      region: 'CA',
+      phoneNumber: '408-2222222',
+      emailAddress: 'tomhanks@gmail.com',
+      status:"review"
     },
   ];
   constructor() {}

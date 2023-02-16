@@ -15,6 +15,7 @@ import { UserTransactionHistoryComponent } from './user-transaction-history/user
 import { UserTaskComponent } from './user-task/user-task.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { MakeJsonPipe } from './make-json.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EmployeesComponent } from './employees/employees.component';
     UserTransactionHistoryComponent,
     UserTaskComponent,
     HeaderComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    MakeJsonPipe
   ],
   imports: [
     BrowserModule,

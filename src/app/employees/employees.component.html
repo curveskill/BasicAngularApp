@@ -1,30 +1,94 @@
 <p>employees works!</p>
-{{empList.length}}
+{{ empList.length }}
+{{ empList | makeJson }}
 
 <select class="form-select" aria-label="Default select example">
-    <option selected>---Select Country--</option>
-    <option [value]="item" *ngFor="let item of countryList; let i =index;">{{item}}</option>
-  </select>
+  <option selected>---Select Country--</option>
+  <option [value]="item" *ngFor="let item of countryList; let i = index">
+    {{ item }}
+  </option>
+</select>
 
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
     <ng-container *ngIf="empList.length > 0">
       <tr *ngFor="let item of empList; let i = index">
-        <th scope="row">{{i + 1}}</th>
-        <td>{{item.firstName}}</td>
-        <td>{{item.lastName}}</td>
+        <th scope="row">{{ i + 1 }}</th>
+        <ng-container [ngSwitch]="item.status">
+          <ng-container *ngSwitchCase="'success'">
+            <td [ngStyle]="{'font-size':'20px','color':'green'}"
+            >{{ item.firstName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'pending'">
+            <td [ngStyle]="{'font-size':'20px','color':'blue'}"
+            >{{ item.firstName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'inProgress'">
+            <td [ngStyle]="{'font-size':'20px','color':'red'}"
+            >{{ item.firstName }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'review'">
+            <td [ngStyle]="{'font-size':'20px','color':'yellow'}"
+            >{{ item.firstName }}</td>
+          </ng-container>
+        </ng-container>
+        
+        <td>{{ item.lastName }}</td>
         <td>
-            <button type="button" class="btn btn-primary btn-sm">Edit</button>
-            <button type="button" class="btn btn-success btn-sm">View</button>
-            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          <!-- 
+          <ng-container *ngIf="item.status == 'success'">
+            <button type="button" class="btn btn-success btn-sm">
+              Success
+            </button>
+          </ng-container>
+          <ng-container *ngIf="item.status == 'pending'">
+            <button type="button" class="btn btn-danger btn-sm">Pending</button>
+          </ng-container>
+          <ng-container *ngIf="item.status == 'inProgress'">
+            <button type="button" class="btn btn-primary btn-sm">
+              In Progress
+            </button>
+          </ng-container>
+          <ng-container *ngIf="item.status == 'review'">
+            <button type="button" class="btn btn-info btn-sm">
+              Under review
+            </button>
+          </ng-container> -->
+
+          <ng-container [ngSwitch]="item.status">
+            <ng-container *ngSwitchCase="'success'">
+              <button type="button" class="btn btn-success btn-sm">
+                Success
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'pending'">
+              <button type="button" class="btn btn-dark btn-sm">Pending</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'inProgress'">
+              <button type="button" class="btn btn-primary btn-sm">
+                In Progress
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'review'">
+              <button type="button" class="btn btn-info btn-sm">
+                Under review
+              </button>
+            </ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm">Edit</button>
+          <button type="button" class="btn btn-success btn-sm">View</button>
+          <button type="button" class="btn btn-danger btn-sm">Delete</button>
         </td>
       </tr>
     </ng-container>
@@ -34,5 +98,5 @@
         <td colspan="4">Employee record not fount</td>
       </tr>
     </ng-container>
-    </tbody>
-  </table>
+  </tbody>
+</table>
