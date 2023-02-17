@@ -10,6 +10,8 @@
 <img [src]="productImg" alt=""  class="product-img">
 <img src="{{productImg}}" alt=""  class="product-img"> -->
 <!-- {{productList | json}} -->
+<p>{{empDetaile | json}}</p>
+{{empData | json}}
 <div class="container-fluid">
     <div class="row">
         <ng-container *ngFor="let item of productList; let i =index; trackBy:trackProducts">

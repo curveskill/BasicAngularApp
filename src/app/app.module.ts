@@ -16,6 +16,7 @@ import { UserTaskComponent } from './user-task/user-task.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { MakeJsonPipe } from './make-json.pipe';
+import { EmployeeService } from './employee.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MakeJsonPipe } from './make-json.pipe';
     BrowserModule,
     AppRoutingModule
   ],
+  // providers: [EmployeeService],
   providers: [],
   bootstrap: [AppComponent]
 })

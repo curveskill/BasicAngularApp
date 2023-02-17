@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-  constructor() { }
+  empData: any = [];
+  constructor(private employeeService:EmployeeService) {
+    this.empData = this.employeeService.empList;
+  }
 
   ngOnInit(): void {
   }

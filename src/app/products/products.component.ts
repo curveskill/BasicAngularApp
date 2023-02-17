@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  // providers:[EmployeeService]
 })
 export class ProductsComponent implements OnInit {
   userName:string = "Sajjad Razi";
@@ -25,7 +27,14 @@ export class ProductsComponent implements OnInit {
     // {productName:"xyz",createdAt:new Date(), productImg:"https://media.wired.com/photos/631bb97dd884b4dcc94164e3/3:2/w_2400,h_1600,c_limit/How-to-Choose-a-Laptop-Gear-GettyImages-1235728903.jpg"},
     // {productName:"xyz", createdAt:new Date(), productImg:"https://media.wired.com/photos/631bb97dd884b4dcc94164e3/3:2/w_2400,h_1600,c_limit/How-to-Choose-a-Laptop-Gear-GettyImages-1235728903.jpg"},
   ]
-  constructor() { 
+
+  empData: any = [];
+  empDetaile:any;
+  constructor(private employeeService:EmployeeService) { 
+    console.log(this.employeeService);
+    // this.empData = this.employeeService.empList;
+    this.empData = this.employeeService.getAllEmpData();
+    this.empDetaile = this.employeeService.getEmpDataBasedOnIndex(1);
     setTimeout(()=>{
       this.productList.push({productName:"Sajjad",isActive:true, createdAt:new Date(), productImg:"https://media.wired.com/photos/631bb97dd884b4dcc94164e3/3:2/w_2400,h_1600,c_limit/How-to-Choose-a-Laptop-Gear-GettyImages-1235728903.jpg"})
     },3000)

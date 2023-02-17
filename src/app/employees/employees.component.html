@@ -1,4 +1,5 @@
 <p>employees works!</p>
+
 {{ empList.length }}
 {{ empList | makeJson }}
 
@@ -42,7 +43,7 @@
           </ng-container>
         </ng-container>
         
-        <td>{{ item.lastName }}</td>
+        <td [ngStyle]="{'font-size':'20px','color':'blue'}">{{ item.lastName }}</td>
         <td>
           <!-- 
           <ng-container *ngIf="item.status == 'success'">
@@ -86,9 +87,10 @@
           </ng-container>
         </td>
         <td>
-          <button type="button" class="btn btn-primary btn-sm">Edit</button>
-          <button type="button" class="btn btn-success btn-sm">View</button>
-          <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status"
+          >Edit</button>
+          <button type="button" class="btn btn-success btn-sm" id="123" [attr.my-data]="item.status">View</button>
+          <button type="button" class="btn btn-danger btn-sm" id="123" [attr.my-data]="item.status">Delete</button>
         </td>
       </tr>
     </ng-container>
