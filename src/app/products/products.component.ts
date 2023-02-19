@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit {
   constructor(private employeeService:EmployeeService) { 
     console.log(this.employeeService);
     // this.empData = this.employeeService.empList;
-    this.empData = this.employeeService.getAllEmpData();
+   
     this.empDetaile = this.employeeService.getEmpDataBasedOnIndex(1);
     setTimeout(()=>{
       this.productList.push({productName:"Sajjad",isActive:true, createdAt:new Date(), productImg:"https://media.wired.com/photos/631bb97dd884b4dcc94164e3/3:2/w_2400,h_1600,c_limit/How-to-Choose-a-Laptop-Gear-GettyImages-1235728903.jpg"})
@@ -41,13 +41,19 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit is called");
+    this.loadEmployeesData();
+  }
 
+  loadEmployeesData(){
+    this.empData = this.employeeService.getAllEmpData();
   }
 
   updateUserName(message:string):void{
     console.log("Onclick event is executed");
     this.userName = `${message} Pradeep`;
   }
+  
   trackProducts(index:number, item:any):any{
     // console.log(index)
     // console.log(item)
