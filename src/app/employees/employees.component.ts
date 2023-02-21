@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employees',
@@ -13,10 +14,20 @@ export class EmployeesComponent implements OnInit {
   empList: any = [];
   empDetails: any;
   hasEmpDatails: boolean = false;
+  employeeForm!:FormGroup;
+  isSubmitted:boolean = false;
   constructor(
     private employeeService: EmployeeService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.employeeForm =  new FormGroup({
+      firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+      lastName: new FormControl("", [Validators.required,Validators.minLength(3)]),
+      emailId: new FormControl("", [Validators.required,Validators.email]),
+      phoneNo: new FormControl("", [Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
+      status: new FormControl("", [Validators.required]),
+    })
+  }
 
   ngOnInit(): void {
     // this.toastr.success('Hello world!', 'Success');
@@ -29,6 +40,34 @@ export class EmployeesComponent implements OnInit {
   //loading employee and initizing to employeeList variable
   loadEmployeeList() {
     this.empList = this.employeeService.empList;
+  }
+
+  get f() { 
+    return this.employeeForm.controls
+   }; // get all form fields access for template
+
+
+  submitEmpForm(){
+    console.log("form submitted");
+    console.log(this.employeeForm.valid)
+    this.isSubmitted = true;
+    if(this.employeeForm.invalid){
+      return
+    }
+    console.log(this.employeeForm.value);
+    const formData: any = this.employeeForm.value;
+    console.log(formData);
+    const isEmpExist = this.empList.find((el: any) => {
+      return el.emailId == formData.emailId;
+    });
+    // console.log(isEmpExist);
+    if (isEmpExist) {
+      this.toastr.warning('This email already in use', 'Warning');
+    } else {
+      this.empList.push(formData);
+      this.toastr.success('New employee is added ssuccessfully', 'Success');
+      this.employeeForm.reset();
+    }
   }
 
   //add employee to employeeList variable

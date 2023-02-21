@@ -19,7 +19,7 @@ import { MakeJsonPipe } from './make-json.pipe';
 import { EmployeeService } from './employee.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {ReactiveFormsModule, FormsModule} from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +41,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule
   ],
   // providers: [EmployeeService],
