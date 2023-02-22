@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employees',
@@ -18,15 +18,31 @@ export class EmployeesComponent implements OnInit {
   isSubmitted:boolean = false;
   constructor(
     private employeeService: EmployeeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fb:FormBuilder
   ) {
-    this.employeeForm =  new FormGroup({
+    this.employeeForm = new FormGroup({
+      // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       lastName: new FormControl("", [Validators.required,Validators.minLength(3)]),
       emailId: new FormControl("", [Validators.required,Validators.email]),
       phoneNo: new FormControl("", [Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
-      status: new FormControl("", [Validators.required]),
+      status: new FormControl("", [Validators.required]), 
+      address: new FormGroup({
+        state: new FormControl(''),
+        district: new FormControl(''),
+        city: new FormControl(''),
+        zipcode: new FormControl(''),
+     })  
     })
+    // this.employeeForm = this.fb.group({
+    //   // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+    //   firstName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+    //   lastName: ["", [Validators.required,Validators.minLength(3)]],
+    //   emailId:["", [Validators.required,Validators.email]],
+    //   phoneNo: ["", [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+    //   status: ["", [Validators.required]],
+    // })
   }
 
   ngOnInit(): void {
@@ -55,6 +71,8 @@ export class EmployeesComponent implements OnInit {
       return
     }
     console.log(this.employeeForm.value);
+    console.log(this.employeeForm.value.firstName);
+    console.log(this.employeeForm.get('firstName')?.value);
     const formData: any = this.employeeForm.value;
     console.log(formData);
     const isEmpExist = this.empList.find((el: any) => {
@@ -67,6 +85,14 @@ export class EmployeesComponent implements OnInit {
       this.empList.push(formData);
       this.toastr.success('New employee is added ssuccessfully', 'Success');
       this.employeeForm.reset();
+
+      // this.employeeForm.patchValue({  
+      //   "firstName":"Shaziya",  
+      //   "lastName":"Khan",  
+      // }); 
+      // this.employeeForm.get('firstName')?.patchValue('Shaziya');
+      // this.employeeForm.get('lastName')?.patchValue('Khan');
+      
     }
   }
 

@@ -19,7 +19,8 @@ import { MakeJsonPipe } from './make-json.pipe';
 import { EmployeeService } from './employee.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms'
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms'
     UserTaskComponent,
     HeaderComponent,
     EmployeesComponent,
-    MakeJsonPipe
+    MakeJsonPipe,
+    RxjsExamplesComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { EnquiryComponent } from './enquiry/enquiry.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductsComponent } from './products/products.component';
+import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
 import { UserAddressComponent } from './user-address/user-address.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserTaskComponent } from './user-task/user-task.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path:"contact-us", component:ContactUsComponent},
   {path:"enquiry", component:EnquiryComponent},
   {path:"employees", component:EmployeesComponent},
+  {path:"rxjs", component:RxjsExamplesComponent},
   {path:"**", component:PageNotFoundComponent},
 ];
 

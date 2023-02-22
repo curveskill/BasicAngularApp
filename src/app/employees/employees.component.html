@@ -54,11 +54,19 @@
                 <div *ngIf="f['phoneNo']['errors']['maxlength']"> Enter 10 digits valid phone no</div>
             </div>
             </div>
+            <div class="mb-3" formGroupName="address">
+              <label for="" class="form-label">Address</label>
+              <input type="text" class="form-control" formControlName="state"  placeholder="State">
+              <input type="text" class="form-control" formControlName="district" placeholder="district">
+              <input type="text" class="form-control" formControlName="city" placeholder="City">
+              <input type="text" class="form-control" formControlName="zipcode" placeholder="zipcode">
+             
+            </div>
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
               <select class="form-select" formControlName="status" aria-label="Default select example" id="status"
               [ngClass]="{ 'is-invalid': isSubmitted && f['status']['errors'] }">
-                <option selected>--Select Status</option>
+                <option value="" selected>--Select Status</option>
                 <option [value]="item" *ngFor="let item of empStatus; let i = index">{{item | titlecase}}</option>
               </select>
               <div *ngIf="isSubmitted && f['status']['errors']" class="error-box">
