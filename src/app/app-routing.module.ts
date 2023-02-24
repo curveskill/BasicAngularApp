@@ -5,6 +5,8 @@ import { EmployeesComponent } from './employees/employees.component';
 import { EnquiryComponent } from './enquiry/enquiry.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductWithApiComponent } from './product-with-api/product-with-api.component';
 import { ProductsComponent } from './products/products.component';
 import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
 import { UserAddressComponent } from './user-address/user-address.component';
@@ -28,6 +30,8 @@ const routes: Routes = [
   {path:"enquiry", component:EnquiryComponent},
   {path:"employees", component:EmployeesComponent},
   {path:"rxjs", component:RxjsExamplesComponent},
+  {path:"product-with-api", component:ProductWithApiComponent},
+  {path:"product-details/:productId", component:ProductDetailsComponent},
   {path:"**", component:PageNotFoundComponent},
 ];
 

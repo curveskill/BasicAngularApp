@@ -20,7 +20,12 @@ import { EmployeeService } from './employee.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
+import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
+import { ProductWithApiComponent } from './product-with-api/product-with-api.component'
+import { HttpClientModule } from '@angular/common/http';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +42,9 @@ import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
     HeaderComponent,
     EmployeesComponent,
     MakeJsonPipe,
-    RxjsExamplesComponent
+    RxjsExamplesComponent,
+    ProductWithApiComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,7 @@ import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component'
     ToastrModule.forRoot(), // ToastrModule added
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   // providers: [EmployeeService],
