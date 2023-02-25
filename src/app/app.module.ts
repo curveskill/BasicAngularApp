@@ -24,6 +24,7 @@ import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
 import { ProductWithApiComponent } from './product-with-api/product-with-api.component'
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetails2Component } from './product-details2/product-details2.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     MakeJsonPipe,
     RxjsExamplesComponent,
     ProductWithApiComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductDetails2Component
   ],
   imports: [
     BrowserModule,

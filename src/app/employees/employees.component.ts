@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-employees',
@@ -14,27 +20,39 @@ export class EmployeesComponent implements OnInit {
   empList: any = [];
   empDetails: any;
   hasEmpDatails: boolean = false;
-  employeeForm!:FormGroup;
-  isSubmitted:boolean = false;
+  employeeForm!: FormGroup;
+  isSubmitted: boolean = false;
   constructor(
     private employeeService: EmployeeService,
     private toastr: ToastrService,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {
     this.employeeForm = new FormGroup({
       // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      firstName: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      lastName: new FormControl("", [Validators.required,Validators.minLength(3)]),
-      emailId: new FormControl("", [Validators.required,Validators.email]),
-      phoneNo: new FormControl("", [Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
-      status: new FormControl("", [Validators.required]), 
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(10),
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      emailId: new FormControl('', [Validators.required, Validators.email]),
+      phoneNo: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]),
+      status: new FormControl('', [Validators.required]),
       address: new FormGroup({
-        state: new FormControl(''),
-        district: new FormControl(''),
-        city: new FormControl(''),
-        zipcode: new FormControl(''),
-     })  
-    })
+        state: new FormControl('',[Validators.required]),
+        district: new FormControl('',[Validators.required]),
+        city: new FormControl('',[Validators.required]),
+        zipcode: new FormControl('',[Validators.required]),
+      }),
+      department: this.fb.array([this.createDept()]),
+    });
     // this.employeeForm = this.fb.group({
     //   // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
     //   firstName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
@@ -53,22 +71,43 @@ export class EmployeesComponent implements OnInit {
     this.loadEmployeeList();
   }
 
+  createDept(): FormGroup {
+    const createDeptGroup = this.fb.group({
+      deptName: ['', [Validators.required]],
+      empRole: ['', [Validators.required]],
+    });
+    return createDeptGroup;
+  }
+  get departmentAsArray() {
+    return this.employeeForm.controls["department"] as FormArray;
+  }
+  addNewDept(){
+    console.log(this.departmentAsArray.length);
+    if(this.departmentAsArray.length == 5){
+      this.toastr.warning("You are not allowed to add more then 5 dept","Warning")
+    }else{
+      this.departmentAsArray.push(this.createDept());
+    }
+  }
+  removeDept(index:number){
+    console.log(index)
+    this.departmentAsArray.removeAt(index);
+  }
   //loading employee and initizing to employeeList variable
   loadEmployeeList() {
     this.empList = this.employeeService.empList;
   }
 
-  get f() { 
-    return this.employeeForm.controls
-   }; // get all form fields access for template
+  get f() {
+    return this.employeeForm.controls;
+  } // get all form fields access for template
 
-
-  submitEmpForm(){
-    console.log("form submitted");
-    console.log(this.employeeForm.valid)
+  submitEmpForm() {
+    console.log('form submitted');
+    console.log(this.employeeForm.valid);
     this.isSubmitted = true;
-    if(this.employeeForm.invalid){
-      return
+    if (this.employeeForm.invalid) {
+      return;
     }
     console.log(this.employeeForm.value);
     console.log(this.employeeForm.value.firstName);
@@ -86,13 +125,12 @@ export class EmployeesComponent implements OnInit {
       this.toastr.success('New employee is added ssuccessfully', 'Success');
       this.employeeForm.reset();
 
-      // this.employeeForm.patchValue({  
-      //   "firstName":"Shaziya",  
-      //   "lastName":"Khan",  
-      // }); 
+      // this.employeeForm.patchValue({
+      //   "firstName":"Shaziya",
+      //   "lastName":"Khan",
+      // });
       // this.employeeForm.get('firstName')?.patchValue('Shaziya');
       // this.employeeForm.get('lastName')?.patchValue('Khan');
-      
     }
   }
 

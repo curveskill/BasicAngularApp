@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-with-api.component.scss']
 })
 export class ProductWithApiComponent implements OnInit {
-  productList:any;
+  productList:any = [];
   constructor(private httpClient:HttpClient,private router:Router) { }
 
   ngOnInit(): void {
@@ -26,4 +26,9 @@ export class ProductWithApiComponent implements OnInit {
     //navigate 
     this.router.navigate([`/product-details/${id}`]);
   }
+  navigateToViewProductDetails2(item:any){
+    //navigate 
+    this.router.navigate([`/product-details2`],{ queryParams: {  productId: item.id, brand: item.brand}});
+  }
+
 }

@@ -56,11 +56,38 @@
             </div>
             <div class="mb-3" formGroupName="address">
               <label for="" class="form-label">Address</label>
-              <input type="text" class="form-control" formControlName="state"  placeholder="State">
-              <input type="text" class="form-control" formControlName="district" placeholder="district">
-              <input type="text" class="form-control" formControlName="city" placeholder="City">
-              <input type="text" class="form-control" formControlName="zipcode" placeholder="zipcode">
-             
+              <div class="row">
+                <div class="col-3">
+                  <input type="text" class="form-control" formControlName="state"  placeholder="State">
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" formControlName="district" placeholder="district">
+                </div>
+                <div class="col-3">
+                  <input type="text" class="form-control" formControlName="city" placeholder="City">
+                </div>
+                <div class="col-3">
+                  <input type="text" class="form-control" formControlName="zipcode" placeholder="zipcode">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Employee Dept</label>
+              <button type="button" class="btn btn-primary btn-sm" (click)="addNewDept()">Add Dept</button>
+              <ng-container formArrayName="department" *ngFor="let item of departmentAsArray.controls; let i = index;">
+              <div [formGroupName]="i" class="row">
+                <div class="col-3">
+                  <input type="text" class="form-control" formControlName="deptName"  placeholder="Dept Name">
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" formControlName="empRole" placeholder="Emp Role">
+                </div>
+                <div class="col-3">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeDept(i)" *ngIf="departmentAsArray.controls.length > 1">Remove Dept {{i + 1}}</button>
+                </div>
+           
+              </div>
+            </ng-container>
             </div>
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
