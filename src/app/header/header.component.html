@@ -39,6 +39,7 @@
             <a class="nav-link" routerLink="rxjs">RXJS</a>
           </li>
         </ul>
+        <button type="button" class="btn btn-primary" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
       </div>
     </div>
   </nav>

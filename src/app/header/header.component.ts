@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  isLoggedIn:boolean = false;
+  constructor(private router:Router) {
+    const checkTokenInLS = localStorage.getItem('JWTtoken');
+    if(checkTokenInLS && checkTokenInLS != null){
+      this.isLoggedIn = true
+    }else{
+      this.isLoggedIn = false
+    }
+  }
 
   ngOnInit(): void {
   }
-
+  logout(){
+    localStorage.removeItem('JWTtoken');
+    localStorage.clear();
+    this.router.navigate(['/login'])
+  }
 }
