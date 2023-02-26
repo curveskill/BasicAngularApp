@@ -1,5 +1,13 @@
 <p>product-with-api works!</p>
 <!-- {{productList | json}} -->
+<button
+  type="button"
+  class="btn btn-danger btn-sm"
+  id="123"
+  routerLink="/add-product"
+>
+  Add Product
+</button>
 <table class="table">
     <thead>
       <tr>
@@ -22,9 +30,11 @@
             <!-- <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status"
             >Edit</button> -->
             <button type="button" [routerLink]="['/product-details',item.id]" class="btn btn-primary btn-sm">View</button>
-            <button type="button"  class="btn btn-success btn-sm" (click)="navigateToViewProductDetails(item.id)">View</button>
+            <button type="button" (click)="viewProduct(item)" class="btn btn-primary btn-sm">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteProduct(item)">Delete</button>
+            <!-- <button type="button"  class="btn btn-success btn-sm" (click)="navigateToViewProductDetails(item.id)">View</button>
             <button type="button"  class="btn btn-success btn-sm"  [routerLink]="['/product-details2']" [queryParams]="{ productId: item.id, brand: item.brand}">View WIth Qparams</button>
-            <button type="button"  class="btn btn-danger btn-sm"  (click)="navigateToViewProductDetails2(item)">View WIth Qparams</button>
+            <button type="button"  class="btn btn-danger btn-sm"  (click)="navigateToViewProductDetails2(item)">View WIth Qparams</button> -->
             <!-- <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)" [attr.my-data]="item.status">Delete</button> -->
           </td>
         </tr>

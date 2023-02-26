@@ -8,106 +8,7 @@
     </div>
   </div>
 </section>
-<section style="min-height: 200px;border: 2px solid gray;">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-          <h3>Add New User</h3>
-           <form id="employeeForm" [formGroup]="employeeForm" (ngSubmit)="submitEmpForm()">
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" formControlName="firstName" id="firstName"
-               placeholder="Enter first name" [ngClass]="{ 'is-invalid': isSubmitted && f['firstName']['errors'] }"
-               >
-               <div *ngIf="isSubmitted && f['firstName']['errors']" class="error-box">
-                <div *ngIf="f['firstName']['errors']['required']">First Name is required</div>
-                <div *ngIf="f['firstName']['errors']['minlength']"> Enter min 3 letters</div>
-                <div *ngIf="f['firstName']['errors']['maxlength']"> Enter max 10 letters</div>
-            </div>
-            
-            </div>
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Enter Last name"
-              [ngClass]="{ 'is-invalid': isSubmitted && f['lastName']['errors'] }">
-              <div *ngIf="isSubmitted && f['lastName']['errors']" class="error-box">
-                <div *ngIf="f['lastName']['errors']['required']">First Name is required</div>
-                <div *ngIf="f['lastName']['errors']['minlength']"> Enter min 3 letters</div>
-            </div>
-            </div>
-            <div class="mb-3">
-              <label for="emailId" class="form-label">Email Id</label>
-              <input type="text" class="form-control" formControlName="emailId" id="emailId" placeholder="Enter Last name" 
-              [ngClass]="{ 'is-invalid': isSubmitted && f['emailId']['errors'] }">
-              <div *ngIf="isSubmitted && f['emailId']['errors']"  class="error-box">
-                <div *ngIf="f['emailId']['errors']['required']">Email Id is required</div>
-                <div *ngIf="f['emailId']['errors']['email']">Enter valid emaail</div>
-            </div>
-            </div>
-            <div class="mb-3">
-              <label for="phoneNo" class="form-label">Phone No</label>
-              <input type="text" class="form-control" formControlName="phoneNo" id="phoneNo" placeholder="Enter Last name" 
-              [ngClass]="{ 'is-invalid': isSubmitted && f['phoneNo']['errors'] }">
-              <div *ngIf="isSubmitted && f['phoneNo']['errors']" class="error-box">
-                <div *ngIf="f['phoneNo']['errors']['required']">Phone No is required</div>
-                <div *ngIf="f['phoneNo']['errors']['minlength']"> Enter 10 digits valid phone no</div>
-                <div *ngIf="f['phoneNo']['errors']['maxlength']"> Enter 10 digits valid phone no</div>
-            </div>
-            </div>
-            <div class="mb-3" formGroupName="address">
-              <label for="" class="form-label">Address</label>
-              <div class="row">
-                <div class="col-3">
-                  <input type="text" class="form-control" formControlName="state"  placeholder="State">
-                </div>
-                <div class="col-3">
-                   <input type="text" class="form-control" formControlName="district" placeholder="district">
-                </div>
-                <div class="col-3">
-                  <input type="text" class="form-control" formControlName="city" placeholder="City">
-                </div>
-                <div class="col-3">
-                  <input type="text" class="form-control" formControlName="zipcode" placeholder="zipcode">
-                </div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="" class="form-label">Employee Dept</label>
-              <button type="button" class="btn btn-primary btn-sm" (click)="addNewDept()">Add Dept</button>
-              <ng-container formArrayName="department" *ngFor="let item of departmentAsArray.controls; let i = index;">
-              <div [formGroupName]="i" class="row">
-                <div class="col-3">
-                  <input type="text" class="form-control" formControlName="deptName"  placeholder="Dept Name">
-                </div>
-                <div class="col-3">
-                   <input type="text" class="form-control" formControlName="empRole" placeholder="Emp Role">
-                </div>
-                <div class="col-3">
-                  <button type="button" class="btn btn-danger btn-sm" (click)="removeDept(i)" *ngIf="departmentAsArray.controls.length > 1">Remove Dept {{i + 1}}</button>
-                </div>
-           
-              </div>
-            </ng-container>
-            </div>
-            <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <select class="form-select" formControlName="status" aria-label="Default select example" id="status"
-              [ngClass]="{ 'is-invalid': isSubmitted && f['status']['errors'] }">
-                <option value="" selected>--Select Status</option>
-                <option [value]="item" *ngFor="let item of empStatus; let i = index">{{item | titlecase}}</option>
-              </select>
-              <div *ngIf="isSubmitted && f['status']['errors']" class="error-box">
-                <div *ngIf="f['status']['errors']['required']">Status is required</div>
-            </div>
-            </div>
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-            </div>
-           </form>
-        </div>
-    </div>
-  </div>
-</section>
+
 
 {{ empList.length }}
 <!-- <select class="form-select" aria-label="Default select example">
@@ -116,7 +17,7 @@
     {{ item }}
   </option>
 </select> -->
-
+<button type="button" class="btn btn-primary btn-sm" id="123" routerLink="/add-employee">Add New Employee</button>
 <table class="table">
   <thead>
     <tr>

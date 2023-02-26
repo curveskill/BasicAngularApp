@@ -25,6 +25,10 @@ import { ProductWithApiComponent } from './product-with-api/product-with-api.com
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductDetails2Component } from './product-details2/product-details2.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ViewProductComponent } from './view-product/view-product.component';
 
 
 @NgModule({
@@ -46,7 +50,11 @@ import { ProductDetails2Component } from './product-details2/product-details2.co
     RxjsExamplesComponent,
     ProductWithApiComponent,
     ProductDetailsComponent,
-    ProductDetails2Component
+    ProductDetails2Component,
+    AddEmployeeComponent,
+    AddProductComponent,
+    EditProductComponent,
+    ViewProductComponent
   ],
   imports: [
     BrowserModule,

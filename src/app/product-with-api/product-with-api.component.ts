@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-with-api',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProductWithApiComponent implements OnInit {
   productList:any = [];
-  constructor(private httpClient:HttpClient,private router:Router) { }
+  constructor(private httpClient:HttpClient,private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProduct();
@@ -22,6 +23,10 @@ export class ProductWithApiComponent implements OnInit {
     })
   }
 
+  viewProduct(item:any){
+    //navigate 
+    this.router.navigate([`/edit-product/${item.id}`]);
+  }
   navigateToViewProductDetails(id:number){
     //navigate 
     this.router.navigate([`/product-details/${id}`]);
@@ -31,4 +36,17 @@ export class ProductWithApiComponent implements OnInit {
     this.router.navigate([`/product-details2`],{ queryParams: {  productId: item.id, brand: item.brand}});
   }
 
+  deleteProduct(item:any){
+    const isConfirmed = confirm("Are you sure wwant to delete this record?");
+    if(isConfirmed){
+      this.httpClient.delete(`https://dummyjson.com/products/${item.id}`).subscribe((result:any)=>{
+      console.log(result);
+      if(result){
+        this.toastr.success("Product deleted successfully","Success");
+      }else{
+        this.toastr.error("Error Occure","Error");
+      }
+    })
+    }
+  }
 }
