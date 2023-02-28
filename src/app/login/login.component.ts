@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UtillsService } from '../utills.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,11 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   isSubmitted:boolean = false;
   isSubmitDisabled:boolean = false;
-  constructor(private http:HttpClient, private router:Router, private toastr:ToastrService) { 
+  constructor(
+    private http:HttpClient, 
+    private router:Router, 
+    private utillsService:UtillsService,
+    private toastr:ToastrService) { 
     this.loginForm =  new FormGroup({
       username: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required]),
@@ -37,6 +42,7 @@ export class LoginComponent implements OnInit {
       console.log(res);
       localStorage.setItem("JWTtoken",res.token);
       this.toastr.success("login successfully","Success");
+      this.utillsService.isUserLoggedIn.next(true);
       this.router.navigate(['/home']);
     },(err:any)=>{
       console.log(err.error);

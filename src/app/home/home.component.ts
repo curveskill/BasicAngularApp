@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtillsService } from '../utills.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private utillsService:UtillsService) { 
+    console.log("isUserLoggedIn---", this.utillsService.isUserLoggedIn)
+  }
 
   ngOnInit(): void {
   }

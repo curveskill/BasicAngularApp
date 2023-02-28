@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-product-with-api',
@@ -10,10 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductWithApiComponent implements OnInit {
   productList:any = [];
+  productsData:any;
+  usersData:any;
+  postsData:any;
   constructor(private httpClient:HttpClient,private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProduct();
+    this.getDataFromMultipleApis();
   }
 
   getAllProduct(){
@@ -48,5 +53,20 @@ export class ProductWithApiComponent implements OnInit {
       }
     })
     }
+  }
+
+
+  getDataFromMultipleApis(){
+    const productApi = this.httpClient.get('https://dummyjson.com/products');
+    const userApi = this.httpClient.get('https://dummyjson.com/users');
+    const postsApi = this.httpClient.get('https://dummyjson.com/posts');
+
+    const apiResult = forkJoin([productApi,userApi,postsApi]); //retuns observable
+    apiResult.subscribe((res:any)=>{
+      console.log(res);
+      this.productsData = res[0].products
+      this.usersData = res[1].users
+      this.postsData = res[2].posts
+    })
   }
 }
