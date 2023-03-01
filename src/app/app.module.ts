@@ -19,10 +19,10 @@ import { MakeJsonPipe } from './make-json.pipe';
 import { EmployeeService } from './employee.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
-import { ProductWithApiComponent } from './product-with-api/product-with-api.component'
-import { HttpClientModule } from '@angular/common/http';
+import { ProductWithApiComponent } from './product-with-api/product-with-api.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductDetails2Component } from './product-details2/product-details2.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -30,7 +30,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { LoginComponent } from './login/login.component';
-
+import { ApiInterceptor } from './api.interceptor';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { LoginComponent } from './login/login.component';
     AddProductComponent,
     EditProductComponent,
     ViewProductComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,10 +65,12 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   // providers: [EmployeeService],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
