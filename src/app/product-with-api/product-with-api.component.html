@@ -3,6 +3,20 @@
 <!-- {{productsData | json}}
 {{usersData | json}}
 {{postsData | json}} -->
+<div class="row">
+  <div class="col-md-3">
+    <select class="form-select" aria-label="Default select example" (change)="getProductByCategory($event)">
+      <option value="" selected>--Filter By Category--</option>
+      <option [value]="item" *ngFor="let item of productCategoriesList; let i = index">{{item}}</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div>
 <button
   type="button"
   class="btn btn-danger btn-sm"
@@ -15,6 +29,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col">Category</th>
         <th scope="col">Brand</th>
         <th scope="col">Title</th>
         <th scope="col">Price</th>
@@ -25,6 +40,7 @@
       <ng-container *ngIf="productList.length > 0">
         <tr *ngFor="let item of productList; let i = index">
           <th scope="row">{{ i + 1 }}</th>
+          <td>{{ item.category }}</td>
           <td>{{ item.brand }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.price }}</td>

@@ -12,6 +12,7 @@ import { UtillsService } from '../utills.service';
 })
 export class ProductWithApiComponent implements OnInit {
   productList: any = [];
+  productCategoriesList:any = [];
   productsData: any;
   usersData: any;
   postsData: any;
@@ -25,6 +26,7 @@ export class ProductWithApiComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProduct();
     this.getDataFromMultipleApis();
+    this.getAllProductCategories();
   }
 
   getAllProduct() {
@@ -97,5 +99,18 @@ export class ProductWithApiComponent implements OnInit {
       this.usersData = res[1].users;
       this.postsData = res[2].posts;
     });
+  }
+
+  getAllProductCategories(){
+    this.httpClient.get(`${environment.apiBaseUrl}products/categories`).subscribe((res:any)=>{
+      this.productCategoriesList = res;
+    })
+  }
+
+  getProductByCategory(event:any):void{
+    const selectedValue = event.target.value;
+    this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
+      this.productList = res.products;
+    })
   }
 }
