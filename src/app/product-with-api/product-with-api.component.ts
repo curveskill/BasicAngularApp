@@ -16,6 +16,13 @@ export class ProductWithApiComponent implements OnInit {
   productsData: any;
   usersData: any;
   postsData: any;
+  isClearShow:boolean = false;
+
+  paginationConfig:any = { 
+  itemsPerPage: 10,
+  currentPage: 1,
+  totalItems: 0
+}
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -46,7 +53,7 @@ export class ProductWithApiComponent implements OnInit {
     //     this.productList = result.products;
     //   });
     this.httpClient
-      .get(`${environment.apiBaseUrl}products`)
+      .get(`${environment.apiBaseUrl}products?limit=100&skip=0`)
       .subscribe((result: any) => {
         console.log(result);
         this.productList = result.products;
@@ -113,4 +120,37 @@ export class ProductWithApiComponent implements OnInit {
       this.productList = res.products;
     })
   }
+  getProductByCategoryOnKeyUp(event:any):void{
+    const selectedValue = event.target.value;
+    if(selectedValue.length ==1 || selectedValue.length > 1){
+      this.isClearShow = true
+    }else{
+      this.isClearShow = false
+    }
+    console.log(selectedValue);
+    // this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
+    //   this.productList = res.products;
+    // })
+  }
+  clearInput(){
+    const inputEl:any = document.getElementById('searchInput');
+    inputEl.value = "";
+    this.isClearShow = false;
+    this.getAllProduct();
+  }
+  getProductByCategoryOnClick(event:any){
+   const inputEl:any = document.getElementById('searchInput');
+   const selectedValue = inputEl.value;
+   if(selectedValue.length ==1 || selectedValue.length > 1){
+    this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
+      this.productList = res.products;
+    })
+  }
+}
+
+pageChanged($event:any){
+  // console.log($event)
+  this.paginationConfig.currentPage = $event;
+}
+
 }

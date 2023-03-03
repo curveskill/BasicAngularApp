@@ -31,6 +31,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { LoginComponent } from './login/login.component';
 import { ApiInterceptor } from './api.interceptor';
+import { LoaderInterceptor } from './loader.interceptor';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -65,11 +67,13 @@ import { ApiInterceptor } from './api.interceptor';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     AppRoutingModule,
   ],
   // providers: [EmployeeService],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

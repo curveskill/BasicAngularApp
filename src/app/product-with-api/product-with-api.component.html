@@ -1,21 +1,52 @@
-<p>product-with-api works!</p>
+
 <!-- {{productList | json}} -->
 <!-- {{productsData | json}}
 {{usersData | json}}
 {{postsData | json}} -->
+<div class="page-heading-box">
+  <h4>Product List</h4>
+</div>
 <div class="row">
   <div class="col-md-3">
-    <select class="form-select" aria-label="Default select example" (change)="getProductByCategory($event)">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      (change)="getProductByCategory($event)"
+    >
       <option value="" selected>--Filter By Category--</option>
-      <option [value]="item" *ngFor="let item of productCategoriesList; let i = index">{{item}}</option>
+      <option
+        [value]="item"
+        *ngFor="let item of productCategoriesList; let i = index"
+      >
+        {{ item }}
+      </option>
     </select>
   </div>
-  <div class="col-md-4">
-
+  <div class="col-md-3">
+    <div class="search-box d-flex">
+      <input
+        type="text"
+        class="form-control"
+        id="searchInput"
+        (keyup)="getProductByCategoryOnKeyUp($event)"
+        placeholder="search by category"
+      />
+      <button
+        class="btn btn-sm btn-primary"
+        (click)="getProductByCategoryOnClick($event)"
+      >
+        Search
+      </button>
+      <button
+        class="btn btn-sm btn-danger"
+        *ngIf="isClearShow"
+        (click)="clearInput()"
+      >
+        clear
+      </button>
+    </div>
   </div>
-  <div class="col-md-4">
-
-  </div>
+  <div class="col-md-4"></div>
 </div>
 <button
   type="button"
@@ -26,43 +57,85 @@
   Add Product
 </button>
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Category</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngIf="productList.length > 0">
-        <tr *ngFor="let item of productList; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>{{ item.category }}</td>
-          <td>{{ item.brand }}</td>
-          <td>{{ item.title }}</td>
-          <td>{{ item.price }}</td>
-        
-          <td>
-            <!-- <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status"
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="productList.length > 0">
+      <tr
+        *ngFor="
+          let item of productList
+            | paginate
+              : {
+                  itemsPerPage: paginationConfig.itemsPerPage,
+                  currentPage: paginationConfig.currentPage
+                };
+          let i = index
+        "
+      >
+        <th scope="row" style="width: 50px">
+          {{
+            (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage +
+              i +
+              1
+          }}
+        </th>
+        <td>{{ item.category }}</td>
+        <td>{{ item.brand }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.price }}</td>
+
+        <td>
+          <!-- <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status"
             >Edit</button> -->
-            <button type="button" [routerLink]="['/product-details',item.id]" class="btn btn-primary btn-sm">View</button>
-            <button type="button" (click)="viewProduct(item)" class="btn btn-primary btn-sm">Edit</button>
-            <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteProduct(item)">Delete</button>
-            <!-- <button type="button"  class="btn btn-success btn-sm" (click)="navigateToViewProductDetails(item.id)">View</button>
+          <button
+            type="button"
+            [routerLink]="['/product-details', item.id]"
+            class="btn btn-primary btn-sm"
+          >
+            View
+          </button>
+          <button
+            type="button"
+            (click)="viewProduct(item)"
+            class="btn btn-primary btn-sm"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            id="123"
+            (click)="deleteProduct(item)"
+          >
+            Delete
+          </button>
+          <!-- <button type="button"  class="btn btn-success btn-sm" (click)="navigateToViewProductDetails(item.id)">View</button>
             <button type="button"  class="btn btn-success btn-sm"  [routerLink]="['/product-details2']" [queryParams]="{ productId: item.id, brand: item.brand}">View WIth Qparams</button>
             <button type="button"  class="btn btn-danger btn-sm"  (click)="navigateToViewProductDetails2(item)">View WIth Qparams</button> -->
-            <!-- <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)" [attr.my-data]="item.status">Delete</button> -->
-          </td>
-        </tr>
-      </ng-container>
-  
-      <ng-container *ngIf="productList.length == 0">
-        <tr>
-          <td colspan="4">Product record not fount</td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
+          <!-- <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)" [attr.my-data]="item.status">Delete</button> -->
+        </td>
+      </tr>
+    </ng-container>
+
+    <ng-container *ngIf="productList.length == 0">
+      <tr>
+        <td colspan="4">Product record not fount</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<ng-container *ngIf="productList.length != 0">
+  <div>
+    <pagination-controls
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+</ng-container>
