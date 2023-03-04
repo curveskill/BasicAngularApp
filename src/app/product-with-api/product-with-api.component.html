@@ -68,7 +68,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="productList.length > 0">
+    <ng-container *ngIf="productList.length > 0 else noData">
       <tr
         *ngFor="
           let item of productList
@@ -123,19 +123,27 @@
           <!-- <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)" [attr.my-data]="item.status">Delete</button> -->
         </td>
       </tr>
+      <tr>
+        <td colspan="4">
+          <pagination-controls
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
+        </td>
+      </tr>
     </ng-container>
 
-    <ng-container *ngIf="productList.length == 0">
+    <ng-template #noData>
       <tr>
         <td colspan="4">Product record not fount</td>
       </tr>
-    </ng-container>
+    </ng-template>
+    
   </tbody>
 </table>
-<ng-container *ngIf="productList.length != 0">
+<!-- <ng-container *ngIf="productList.length != 0">
   <div>
     <pagination-controls
-      (pageChange)="pageChanged($event)"
-    ></pagination-controls>
+          (pageChange)="pageChanged($event)"
+        ></pagination-controls>
   </div>
-</ng-container>
+</ng-container> -->

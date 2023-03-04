@@ -1,4 +1,7 @@
-<app-header></app-header>
+
+<app-header [messageData]="message" (messageFromEvent)="dataReceive($event)"></app-header>
+<button type="button" class="btn btn-primary" (click)="sendDataToChild()">send Data</button>
+<h3>{{dataFromChild}}</h3>
 <div style="border: 1px solid red; padding: 10px">
   <router-outlet></router-outlet>
 </div>

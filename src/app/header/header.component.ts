@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtillsService } from '../utills.service';
 
@@ -7,10 +7,14 @@ import { UtillsService } from '../utills.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  isLoggedIn:boolean = false;
-  constructor(private router:Router, private utillsService:UtillsService) {
+export class HeaderComponent implements OnInit,OnChanges {
+  @Input("messageData") messageData:any;
+  @Output() messageFromEvent = new EventEmitter<any>();
 
+  isLoggedIn:boolean = false;
+  userMessage:string = "";
+  constructor(private router:Router, private utillsService:UtillsService) {
+   
     const checkTokenInLS = localStorage.getItem('JWTtoken');
     if(checkTokenInLS && checkTokenInLS != null){
       this.utillsService.isUserLoggedIn.next(true)
@@ -29,8 +33,21 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+      console.log("ngOnChanges is executed")
+      console.log(changes)
+      this.userMessage = changes['messageData'].currentValue
   }
+
+  ngOnInit(): void {
+    // this.userMessage = this.messageData;
+  }
+
+  sendMesageToParent(){
+    this.messageFromEvent.emit("I am coming from child");
+  }
+
+  
   logout(){
     localStorage.removeItem('JWTtoken');
     localStorage.clear();
