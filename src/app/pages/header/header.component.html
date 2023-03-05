@@ -42,8 +42,8 @@
             <button type="button" class="btn btn-success" (click)="sendMesageToParent()">send Mesage To Parent</button>
           </li>
         </ul>
-        {{userMessage}}
-        <button type="button" class="btn btn-primary" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+        <!-- {{userMessage}} -->
+        <button type="button" class="btn btn-primary" *ngIf="isLoggedIn | async" (click)="logout()">Logout</button>
       
       </div>
     </div>

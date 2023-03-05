@@ -6,8 +6,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UtillsService {
-  isUserLoggedIn = new Subject<any>();
-  // isUserLoggedIn = new BehaviorSubject<any>(null);
+  // isUserLoggedIn = new Subject<any>();
+  isUserLoggedIn = new BehaviorSubject<any>(false);
   userDetails = new BehaviorSubject<any>(null);
   constructor() { }
 

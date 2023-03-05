@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee.service';
 import { ToastrService } from 'ngx-toastr';
 import {
   FormArray,
@@ -8,6 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-employees',

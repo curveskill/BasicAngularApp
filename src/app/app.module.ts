@@ -1,39 +1,40 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
-import { UsersComponent } from './users/users.component';
-import { ProductsComponent } from './products/products.component';
-import { EnquiryComponent } from './enquiry/enquiry.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserAddressComponent } from './user-address/user-address.component';
-import { UserTransactionHistoryComponent } from './user-transaction-history/user-transaction-history.component';
-import { UserTaskComponent } from './user-task/user-task.component';
-import { HeaderComponent } from './header/header.component';
-import { EmployeesComponent } from './employees/employees.component';
-import { MakeJsonPipe } from './make-json.pipe';
-import { EmployeeService } from './employee.service';
-import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RxjsExamplesComponent } from './rxjs-examples/rxjs-examples.component';
-import { ProductWithApiComponent } from './product-with-api/product-with-api.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductDetails2Component } from './product-details2/product-details2.component';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { AddProductComponent } from './add-product/add-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
-import { ViewProductComponent } from './view-product/view-product.component';
-import { LoginComponent } from './login/login.component';
-import { ApiInterceptor } from './api.interceptor';
-import { LoaderInterceptor } from './loader.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AppComponent } from './app.component';
+import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { EmployeesComponent } from './pages/employees/employees.component';
+import { EnquiryComponent } from './pages/enquiry/enquiry.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { ProductDetails2Component } from './pages/product-details2/product-details2.component';
+import { ProductWithApiComponent } from './pages/product-with-api/product-with-api.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { RxjsExamplesComponent } from './pages/rxjs-examples/rxjs-examples.component';
+import { UserAddressComponent } from './pages/user-address/user-address.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UserTaskComponent } from './pages/user-task/user-task.component';
+import { UserTransactionHistoryComponent } from './pages/user-transaction-history/user-transaction-history.component';
+import { UsersComponent } from './pages/users/users.component';
+import { ViewProductComponent } from './pages/view-product/view-product.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { MakeJsonPipe } from './pipes/make-json.pipe';
+import { ApiInterceptor } from './interceptors/api.interceptor';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { ChangeColorDirective } from './directives/change-color.directive';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EditProductComponent,
     ViewProductComponent,
     LoginComponent,
+    ChangeColorDirective,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     NgxPaginationModule,
     AppRoutingModule,
+    NgxSpinnerModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   // providers: [EmployeeService],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },

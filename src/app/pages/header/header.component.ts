@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { UtillsService } from '../utills.service';
+import { Observable } from 'rxjs';
+import { UtillsService } from 'src/app/services/utills.service';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +12,15 @@ export class HeaderComponent implements OnInit,OnChanges {
   @Input("messageData") messageData:any;
   @Output() messageFromEvent = new EventEmitter<any>();
 
-  isLoggedIn:boolean = false;
+  isLoggedIn:Observable<boolean> = this.utillsService.isUserLoggedIn;
   userMessage:string = "";
   constructor(private router:Router, private utillsService:UtillsService) {
-   
     const checkTokenInLS = localStorage.getItem('JWTtoken');
     if(checkTokenInLS && checkTokenInLS != null){
-      this.utillsService.isUserLoggedIn.next(true)
+      this.utillsService.isUserLoggedIn.next(true);
     }else{
       this.utillsService.isUserLoggedIn.next(false)
     }
-
-    this.utillsService.isUserLoggedIn.subscribe((res:any)=>{
-      console.log(res);
-      this.isLoggedIn = res;
-    })
     // this.utillsService.getIsloggedIn().subscribe((res:any)=>{
     //   console.log(res);
     //   this.isLoggedIn = res;

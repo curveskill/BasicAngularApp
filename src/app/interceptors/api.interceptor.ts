@@ -6,7 +6,8 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UtillsService } from './utills.service';
+import { UtillsService } from '../services/utills.service';
+
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {

@@ -3,8 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Subscription } from 'rxjs';
+import { UtillsService } from 'src/app/services/utills.service';
 import { environment } from 'src/environments/environment';
-import { UtillsService } from '../utills.service';
+
 @Component({
   selector: 'app-product-with-api',
   templateUrl: './product-with-api.component.html',
@@ -57,7 +58,7 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     //     this.productList = result.products;
     //   });
     this.productsSubscription = this.httpClient
-      .get(`${environment.apiBaseUrl}products?limit=100&skip=0`)
+      .get(`${environment.apiBaseUrl}21313product2323s?limit=100&skip=0`)
       .subscribe((result: any) => {
         console.log(result);
         this.productList = result.products;

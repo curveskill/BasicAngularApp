@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UtillsService } from '../utills.service';
+import { UtillsService } from 'src/app/services/utills.service';
+
 
 @Component({
   selector: 'app-login',
