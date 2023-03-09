@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin, Subscription } from 'rxjs';
+import { catchError, forkJoin, Subscription, throwError } from 'rxjs';
 import { UtillsService } from 'src/app/services/utills.service';
 import { environment } from 'src/environments/environment';
 
@@ -57,12 +57,19 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     //     console.log(result);
     //     this.productList = result.products;
     //   });
-    this.productsSubscription = this.httpClient
-      .get(`${environment.apiBaseUrl}21313product2323s?limit=100&skip=0`)
+    this.productsSubscription = this.httpClient.get(`${environment.apiBaseUrl}21313product2323s?limit=100&skip=0`)
       .subscribe((result: any) => {
         console.log(result);
         this.productList = result.products;
       });
+
+    // this.productsSubscription = this.httpClient.get(`${environment.apiBaseUrl}21313product2323s?limit=100&skip=0`).pipe(catchError((error:HttpErrorResponse)=>{
+    //   return this.handleHttpError(error);
+    // }))
+    //   .subscribe((result: any) => {
+    //     console.log(result);
+    //     this.productList = result.products;
+    //   });
   }
 
   viewProduct(item: any) {
@@ -161,6 +168,29 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
   pageChanged($event: any) {
     // console.log($event)
     this.paginationConfig.currentPage = $event;
+  }
+  
+  handleHttpError(error: HttpErrorResponse) {
+    let errorInfo = '';
+    if (error.error instanceof ErrorEvent) {
+      errorInfo = `Client Side Error ${error.message}`;
+    } else {
+      errorInfo = `Server Side Error -Status ${error.status}- MSG ${error.message}`;
+      switch (error.status) {
+        case 404:
+          this.toastr.error(error.message);
+          break;
+        case 401:
+          this.toastr.error(
+            'Unauthorized attempt, Please login to continue'
+          );
+          break;
+        case 500:
+          this.toastr.error('Internal Server Error');
+          break;
+      }
+    }
+    return throwError(() => new Error(errorInfo));
   }
   
   ngOnDestroy(): void {

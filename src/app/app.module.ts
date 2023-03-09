@@ -35,6 +35,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ChangeColorDirective } from './directives/change-color.directive';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +79,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

@@ -44,9 +44,6 @@ export class HeaderComponent implements OnInit,OnChanges {
 
   
   logout(){
-    localStorage.removeItem('JWTtoken');
-    localStorage.clear();
-    this.utillsService.isUserLoggedIn.next(false)
-    this.router.navigate(['/login'])
+    this.utillsService.userLogout();
   }
 }

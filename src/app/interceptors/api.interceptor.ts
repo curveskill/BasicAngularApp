@@ -15,7 +15,7 @@ export class ApiInterceptor implements HttpInterceptor {
   constructor(private utillsService:UtillsService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("API interceptor");
+    // console.log("API interceptor");
       request = request.clone({
         setHeaders:{
           'Authorization':`Bearer ${this.utillsService.getToken()}`,
