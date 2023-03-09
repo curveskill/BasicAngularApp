@@ -57,7 +57,7 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     //     console.log(result);
     //     this.productList = result.products;
     //   });
-    this.productsSubscription = this.httpClient.get(`${environment.apiBaseUrl}21313product2323s?limit=100&skip=0`)
+    this.productsSubscription = this.httpClient.get(`${environment.apiBaseUrl}products?limit=100&skip=0`)
       .subscribe((result: any) => {
         console.log(result);
         this.productList = result.products;

@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
     private utillsService:UtillsService,
     private toastr:ToastrService) { 
     this.loginForm =  new FormGroup({
-      username: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required]),
+      username: new FormControl("kminchelle", [Validators.required]),
+      password: new FormControl("0lelplR", [Validators.required]),
     })
   }
 
