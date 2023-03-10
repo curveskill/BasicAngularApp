@@ -36,6 +36,9 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ChangeColorDirective } from './directives/change-color.directive';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +76,8 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     NgxPaginationModule,
     AppRoutingModule,
     NgxSpinnerModule,
+    NgbAlertModule,
+    NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   // providers: [EmployeeService],

@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class UtillsService {
   // isUserLoggedIn = new Subject<any>();
   isUserLoggedIn = new BehaviorSubject<any>(false);
   userDetails = new BehaviorSubject<any>(null);
-  constructor(private router:Router) { }
+  constructor(private router:Router,private toastrService:ToastrService) { }
 
   getIsloggedIn(){
     return this.isUserLoggedIn.asObservable();
@@ -32,5 +33,19 @@ export class UtillsService {
     localStorage.clear();
     this.isUserLoggedIn.next(false)
     this.router.navigate(['/login']);
+  }
+
+  showSuccess(message:string, title?:string):void{
+    this.toastrService.success(message, title);
+    //show sweetalert
+  }
+  showError(message:string, title?:string):void{
+    this.toastrService.error(message, title);
+  }
+  showWarning(message:string, title?:string):void{
+    this.toastrService.warning(message, title);
+  }
+  showInfo(message:string, title?:string):void{
+    this.toastrService.info(message, title);
   }
 }

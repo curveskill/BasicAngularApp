@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {
   FormArray,
@@ -8,13 +8,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/employee.service';
-
+import {NgbModal, ModalDismissReasons, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { UtillsService } from 'src/app/services/utills.service';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class EmployeesComponent implements OnInit {
+  @ViewChild("empDetailsRef") empDetailsRef!:ElementRef;
+  @ViewChild("empAddEditRef") empAddEditRef!:ElementRef;
+  @ViewChild("empDeleteRef") empDeleteRef!:ElementRef;
   countryList: any = ['India', 'Dubai', 'America'];
   empStatus: any = ['success', 'pending', 'inProgress', 'review'];
   empList: any = [];
@@ -22,11 +28,19 @@ export class EmployeesComponent implements OnInit {
   hasEmpDatails: boolean = false;
   employeeForm!: FormGroup;
   isSubmitted: boolean = false;
+  employeeIndex!:number;
+
   constructor(
+    config: NgbModalConfig,
     private employeeService: EmployeeService,
-    private toastr: ToastrService,
-    private fb: FormBuilder
+    private utillsService: UtillsService,
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private router: Router,
   ) {
+     // customize default values of modals used by this component tree
+     config.backdrop = 'static';
+     config.keyboard = false;
     this.employeeForm = new FormGroup({
       // firstName: new FormControl("Sajjad", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       firstName: new FormControl('', [
@@ -91,7 +105,7 @@ export class EmployeesComponent implements OnInit {
   addNewDept(){
     console.log(this.departmentAsArray.length);
     if(this.departmentAsArray.length == 5){
-      this.toastr.warning("You are not allowed to add more then 5 dept","Warning")
+      this.utillsService.showWarning("You are not allowed to add more then 5 dept","Warning")
     }else{
       this.departmentAsArray.push(this.createDept());
     }
@@ -126,10 +140,10 @@ export class EmployeesComponent implements OnInit {
     });
     // console.log(isEmpExist);
     if (isEmpExist) {
-      this.toastr.warning('This email already in use', 'Warning');
+      this.utillsService.showWarning('This email already in use', 'Warning');
     } else {
       this.empList.push(formData);
-      this.toastr.success('New employee is added ssuccessfully', 'Success');
+      this.utillsService.showSuccess('New employee is added ssuccessfully', 'Success');
       this.employeeForm.reset();
 
       // this.employeeForm.patchValue({
@@ -163,10 +177,10 @@ export class EmployeesComponent implements OnInit {
     });
     // console.log(isEmpExist);
     if (isEmpExist) {
-      this.toastr.warning('This email already in use', 'Warning');
+      this.utillsService.showWarning('This email already in use', 'Warning');
     } else {
       this.empList.push(formData);
-      this.toastr.success('New employee is added ssuccessfully', 'Success');
+      this.utillsService.showSuccess('New employee is added ssuccessfully', 'Success');
       this.resetEmpForm();
     }
   }
@@ -183,29 +197,42 @@ export class EmployeesComponent implements OnInit {
     phoneNo.value = '';
     status.value = '';
   }
+
+  showEmpDeleteModal(index: number, item: any){
+    this.employeeIndex = index;
+    this.modalService.open(this.empDeleteRef);
+  }
   //removing employee from employeeList variable
-  deleteEmployee(index: number, item: any): void {
-    console.log('deleteEmployee is called');
-    console.log(index);
-    console.log(item);
-    this.hasEmpDatails = false;
-    const checkConfirm = confirm('Are you sure want to delete this record?');
-    if (checkConfirm) {
-      this.empList.splice(index, 1);
-      this.toastr.error(
-        'Employee record is deleted ssuccessfully',
-        'Confirmation'
-      );
-    }
+  deleteEmployee(): void {
+    console.log(this.employeeIndex);
+    this.empList.splice(this.employeeIndex, 1);
+    this.modalService.dismissAll();
+    this.utillsService.showSuccess('Employee record deleted ssuccessfully','Success');
+    // this.hasEmpDatails = false;
+    // const checkConfirm = confirm('Are you sure want to delete this record?');
+    // if (checkConfirm) {
+    //   this.empList.splice(index, 1);
+    //   this.toastr.error(
+    //     'Employee record is deleted ssuccessfully',
+    //     'Confirmation'
+    //   );
+    // }
   }
 
+  addEditEmp(){
+    // this.router.navigate(['/add-employee']);
+
+    //show add popup modal
+    this.modalService.open(this.empAddEditRef,{ fullscreen: true })
+  }
   //reading employee data from employeeList variable
   viewEmployee(index: number, item: any): void {
     console.log('viewEmployee is called');
     // console.log(item);
     console.log(index);
     this.empDetails = this.empList[index];
-    this.hasEmpDatails = true;
+    // this.hasEmpDatails = true;
+    this.modalService.open(this.empDetailsRef);
   }
 
   //updating employee record of employeeList variable

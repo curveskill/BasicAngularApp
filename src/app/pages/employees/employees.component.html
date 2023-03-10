@@ -17,7 +17,7 @@
     {{ item }}
   </option>
 </select> -->
-<button type="button" class="btn btn-primary btn-sm" id="123" routerLink="/add-employee">Add New Employee</button>
+<button type="button" class="btn btn-primary btn-sm" id="123" (click)="addEditEmp()">Add New Employee</button>
 <table class="table">
   <thead>
     <tr>
@@ -102,7 +102,7 @@
           <button type="button" class="btn btn-primary btn-sm" id="123" [attr.my-data]="item.status"
           >Edit</button>
           <button type="button" class="btn btn-success btn-sm" id="123" (click)="viewEmployee(i, item)" [attr.my-data]="item.status">View</button>
-          <button type="button" class="btn btn-danger btn-sm" id="123" (click)="deleteEmployee(i, item)" [attr.my-data]="item.status">Delete</button>
+          <button type="button" class="btn btn-danger btn-sm" id="123" (click)="showEmpDeleteModal(i, item)" [attr.my-data]="item.status">Delete</button>
         </td>
       </tr>
     </ng-container>
@@ -114,3 +114,56 @@
     </ng-container>
   </tbody>
 </table>
+
+
+<ng-template #empDetailsRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Employee Details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        {{empDetails | json}}
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Close</button>
+  </div>
+</ng-template>
+
+
+<ng-template #empAddEditRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Employee</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Form
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="modal.close('close')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #empDeleteRef let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+   
+      <div class="mb-3">
+        <p>Are you sure want to delete this record?</p>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm" (click)="modal.close('close')">No</button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="deleteEmployee()">Yes</button>
+  </div>
+</ng-template>

@@ -4,6 +4,11 @@
 <h3>{{dataFromChild}}</h3>
 <div style="border: 1px solid red; padding: 10px">
   <!-- {{isloading | async}} -->
+  <p>
+    <ngb-alert [dismissible]="false">
+      <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    </ngb-alert>
+  </p>
   <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
   <router-outlet></router-outlet>
 </div>

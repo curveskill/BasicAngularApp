@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, forkJoin, Subscription, throwError } from 'rxjs';
+import { CommonHttpService } from 'src/app/services/common-http.service';
 import { UtillsService } from 'src/app/services/utills.service';
 import { environment } from 'src/environments/environment';
 
@@ -32,7 +33,8 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private router: Router,
     private toastr: ToastrService,
-    private utillsService: UtillsService
+    private utillsService: UtillsService,
+    private commonHttp:CommonHttpService
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     //     console.log(result);
     //     this.productList = result.products;
     //   });
-    this.productsSubscription = this.httpClient.get(`${environment.apiBaseUrl}products?limit=100&skip=0`)
+    this.productsSubscription = this.commonHttp.getHttp(`${environment.apiBaseUrl}products?limit=100&skip=0`)
       .subscribe((result: any) => {
         console.log(result);
         this.productList = result.products;
@@ -95,9 +97,9 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
         .subscribe((result: any) => {
           console.log(result);
           if (result) {
-            this.toastr.success('Product deleted successfully', 'Success');
+            this.utillsService.showSuccess('Product deleted successfully', 'Success');
           } else {
-            this.toastr.error('Error Occure', 'Error');
+            this.utillsService.showError('Error Occure', 'Error');
           }
         });
     }
@@ -178,15 +180,15 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
       errorInfo = `Server Side Error -Status ${error.status}- MSG ${error.message}`;
       switch (error.status) {
         case 404:
-          this.toastr.error(error.message);
+          this.utillsService.showError(error.message);
           break;
         case 401:
-          this.toastr.error(
+          this.utillsService.showError(
             'Unauthorized attempt, Please login to continue'
           );
           break;
         case 500:
-          this.toastr.error('Internal Server Error');
+          this.utillsService.showError('Internal Server Error');
           break;
       }
     }
