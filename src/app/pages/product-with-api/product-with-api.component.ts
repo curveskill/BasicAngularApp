@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, forkJoin, Subscription, throwError } from 'rxjs';
@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
   selector: 'app-product-with-api',
   templateUrl: './product-with-api.component.html',
   styleUrls: ['./product-with-api.component.scss'],
+  encapsulation:ViewEncapsulation.None,
+  providers:[]
 })
 export class ProductWithApiComponent implements OnInit, OnDestroy {
   productList: any = [];
@@ -145,9 +147,11 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
       this.isClearShow = false;
     }
     console.log(selectedValue);
-    // this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
-    //   this.productList = res.products;
-    // })
+    setTimeout(()=>{
+      this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
+        this.productList = res.products;
+      })
+    },3000)
   }
   clearInput() {
     const inputEl: any = document.getElementById('searchInput');

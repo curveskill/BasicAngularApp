@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
@@ -55,11 +55,19 @@ const routes: Routes = [
   {path:"product-with-api", component:ProductWithApiComponent,canActivate:[AuthGuard]},
   {path:"product-details/:productId", component:ProductDetailsComponent,canActivate:[AuthGuard]},
   {path:"product-details2", component:ProductDetails2Component,canActivate:[AuthGuard]},
+  { path: 'customers', loadChildren: () => import('./features/customers/customers.module').then(m => m.CustomersModule) },
+  { path: 'feature-users', loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule) },
+  { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
   {path:"**", component:PageNotFoundComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)
+    // RouterModule.forRoot(routes,{
+    //   preloadingStrategy:PreloadAllModules
+    // })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
