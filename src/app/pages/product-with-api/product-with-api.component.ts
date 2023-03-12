@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, forkJoin, Subscription, throwError } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, forkJoin, of, Subject, Subscription, switchMap, throwError } from 'rxjs';
 import { CommonHttpService } from 'src/app/services/common-http.service';
 import { UtillsService } from 'src/app/services/utills.service';
 import { environment } from 'src/environments/environment';
@@ -30,6 +30,8 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
   productsSubscription!: Subscription;
   productsDeleteSubscription!: Subscription;
   productsAllSubscription!: Subscription;
+  searchSubject = new Subject<string>();
+  searchSubscription?: Subscription;
 
   constructor(
     private httpClient: HttpClient,
@@ -43,6 +45,7 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     this.getAllProduct();
     this.getDataFromMultipleApis();
     this.getAllProductCategories();
+    this.getSearchProductData();
   }
 
   getAllProduct() {
@@ -141,17 +144,35 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
   }
   getProductByCategoryOnKeyUp(event: any): void {
     const selectedValue = event.target.value;
-    if (selectedValue.length == 1 || selectedValue.length > 1) {
-      this.isClearShow = true;
-    } else {
-      this.isClearShow = false;
-    }
-    console.log(selectedValue);
-    setTimeout(()=>{
-      this.httpClient.get(`${environment.apiBaseUrl}products/category/${selectedValue}`).subscribe((res:any)=>{
-        this.productList = res.products;
+    this.searchSubject.next(selectedValue.trim());
+    // if (selectedValue.length == 1 || selectedValue.length > 1) {
+    //   this.isClearShow = true;
+      
+    // } else {
+      
+    //   this.isClearShow = false;
+    // }
+  }
+
+  getSearchProductData(){
+   this.searchSubject.pipe(
+      debounceTime(2000),
+      distinctUntilChanged(),
+      switchMap((searchQuery) => {
+       console.log(searchQuery.length);
+       if(searchQuery.length >= 1){
+        this.isClearShow = true;
+         return this.httpClient.get(`${environment.apiBaseUrl}/products/category/${searchQuery}`);
+       }else{
+        this.isClearShow = false;
+        this.getAllProduct();
+        return of({});
+       }
       })
-    },3000)
+    ).subscribe((results:any) =>{
+      console.log(results);
+      this.productList = results.products;
+    });
   }
   clearInput() {
     const inputEl: any = document.getElementById('searchInput');
@@ -203,5 +224,6 @@ export class ProductWithApiComponent implements OnInit, OnDestroy {
     this.productsSubscription?.unsubscribe();
     this.productsDeleteSubscription?.unsubscribe();
     this.productsAllSubscription?.unsubscribe();
+    // this.searchSubscription?.unsubscribe();
   }
 }

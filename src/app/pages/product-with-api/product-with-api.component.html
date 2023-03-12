@@ -1,4 +1,3 @@
-
 <!-- {{productList | json}} -->
 <!-- {{productsData | json}}
 {{usersData | json}}
@@ -31,6 +30,7 @@
         (keyup)="getProductByCategoryOnKeyUp($event)"
         placeholder="search by category"
       />
+      <!-- (input)="getProductByCategoryOnKeyUp($event)" -->
       <!-- <button
         class="btn btn-sm btn-primary  search-btn"
         (click)="getProductByCategoryOnClick($event)"
@@ -46,7 +46,13 @@
       </button>
     </div>
   </div>
-  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button
+      type="button"
+      class="btn btn-primary btn-sm">
+      Export In Excel
+    </button>
+  </div>
 </div>
 <button
   type="button"
@@ -68,7 +74,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="productList.length > 0 else noData">
+    <ng-container *ngIf="productList.length > 0; else noData">
       <tr
         *ngFor="
           let item of productList
@@ -126,8 +132,8 @@
       <tr>
         <td colspan="4">
           <pagination-controls
-          (pageChange)="pageChanged($event)"
-        ></pagination-controls>
+            (pageChange)="pageChanged($event)"
+          ></pagination-controls>
         </td>
       </tr>
     </ng-container>
@@ -137,7 +143,6 @@
         <td colspan="4">Product record not fount</td>
       </tr>
     </ng-template>
-    
   </tbody>
 </table>
 <!-- <ng-container *ngIf="productList.length != 0">
