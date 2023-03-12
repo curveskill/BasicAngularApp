@@ -15,7 +15,7 @@ export class ChangeColorDirective {
     console.log("click event ===")
   }
   @HostListener('mouseover') onMouseOver(){
-    console.log("click event ===")
+    console.log("click event === *****")
     this.background = "gray";
     this.fontColor = "red";
   }
