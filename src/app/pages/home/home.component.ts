@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit {
   userObs$!:Observable<any>;
   testObs$:Observable<any> = from([10,30,70]);
+  searchValue:string = "";
   constructor(private utillsService:UtillsService, private http:HttpClient, private aRoute:ActivatedRoute) { 
     console.log("isUserLoggedIn---", this.utillsService.isUserLoggedIn);
 
@@ -28,5 +29,9 @@ export class HomeComponent implements OnInit {
 
   getInputValue(value:string){
     console.log(value);
+  }
+
+  getSearchVal(){
+    console.log(this.searchValue)
   }
 }

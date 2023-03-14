@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtillsService } from 'src/app/services/utills.service';
 
 @Component({
   selector: 'app-users',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private util:UtillsService) { }
 
   ngOnInit(): void {
+    this.util.showSuccess("testing","Success")
   }
 
 }

@@ -1,1 +1,83 @@
-<p>add-user works!</p>
+<p>add-User works!</p>
+<button type="button" class="btn btn-danger btn-sm" id="123" routerLink="/employees">Back</button>
+<section style="min-height: 200px;border: 2px solid gray;">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+            <h3>Add New User</h3>
+             <form id="employeeForm" [formGroup]="employeeForm" (ngSubmit)="submitEmpForm()">
+              <div class="row"></div>
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" formControlName="firstName" id="firstName"
+                 placeholder="Enter first name" [ngClass]="{ 'is-invalid': isSubmitted && f['firstName']['errors'] }"
+                 >
+                 <div *ngIf="isSubmitted && f['firstName']['errors']" class="error-box">
+                  <div *ngIf="f['firstName']['errors']['required']">First Name is required</div>
+                  <div *ngIf="f['firstName']['errors']['minlength']"> Enter min 3 letters</div>
+                  <div *ngIf="f['firstName']['errors']['maxlength']"> Enter max 10 letters</div>
+              </div>
+              </div>
+              <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Enter Last name"
+                [ngClass]="{ 'is-invalid': isSubmitted && f['lastName']['errors'] }">
+                <div *ngIf="isSubmitted && f['lastName']['errors']" class="error-box">
+                  <div *ngIf="f['lastName']['errors']['required']">First Name is required</div>
+                  <div *ngIf="f['lastName']['errors']['minlength']"> Enter min 3 letters</div>
+              </div>
+              </div>
+            
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+              </div>
+             </form>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel title="Simple">
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <span>&#9733; <b>Fancy</b> title &#9733;</span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="Disabled" [disabled]="true">
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+
+  <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+    <button type="button" class="btn btn-outline-primary me-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+      <button ngbDropdownItem>Action - 1</button>
+      <button ngbDropdownItem>Another Action</button>
+      <button ngbDropdownItem>Something else is here</button>
+    </div>
+  </div>
