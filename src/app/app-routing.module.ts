@@ -22,6 +22,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { ViewProductComponent } from './pages/view-product/view-product.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UsersResolver } from './resolver/users.resolver';
+import { TdfComponent } from './pages/tdf/tdf.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
     {path:"user-trans-history", component:UserTransactionHistoryComponent},
     {path:"user-task", component:UserTaskComponent},
   ]},
+  {path:"tdf", component:TdfComponent, canActivate:[AuthGuard]},
   {path:"products", component:ProductsComponent, canActivate:[AuthGuard]},
   {path:"contact-us", component:ContactUsComponent,canActivate:[AuthGuard]},
   {path:"enquiry", component:EnquiryComponent,canActivate:[AuthGuard]},

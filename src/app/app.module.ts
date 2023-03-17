@@ -40,6 +40,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { WidgetModule } from './widget/widget.module';
+import { TdfComponent } from './pages/tdf/tdf.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { WidgetModule } from './widget/widget.module';
     ViewProductComponent,
     LoginComponent,
     ChangeColorDirective,
+    TdfComponent,
   ],
   imports: [
     BrowserModule,
